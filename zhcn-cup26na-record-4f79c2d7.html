@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>再访·世界杯 | 信息卡片站</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #faf7f0;
+      font-family: system-ui, "Noto Serif SC", "Source Han Serif CN", "SimSun", Georgia, serif;
+      color: #2e2b26;
+      line-height: 1.7;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: rgba(255, 252, 246, 0.7);
+      backdrop-filter: blur(2px);
+      border-radius: 36px;
+      padding: 2.8rem 2.2rem;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
+      border: 1px solid #efebe3;
+    }
+
+    /* 主视觉 —— 低调文字 banner */
+    .hero {
+      padding: 2rem 0 2.5rem 0;
+      border-bottom: 1px dashed #ddd6cb;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 350;
+      letter-spacing: 3px;
+      color: #3f3a33;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .sub {
+      font-size: 1.1rem;
+      color: #7a7267;
+      border-left: 4px solid #b8a89a;
+      padding-left: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin: 2.5rem 0;
+    }
+
+    .card {
+      background: #fcf9f3;
+      border-radius: 28px;
+      padding: 1.8rem 1.6rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #eae3d8;
+      transition: transform 0.15s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 18px -8px rgba(90, 70, 50, 0.08);
+      border-color: #cfc4b4;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      font-weight: 400;
+      border-bottom: 1px solid #e5ddd1;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: #4d453d;
+    }
+
+    .card p, .card ul {
+      font-size: 0.95rem;
+      color: #4e4840;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0.2rem;
+    }
+
+    .card ul li {
+      padding: 0.3rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .card ul li::before {
+      content: "·";
+      position: absolute;
+      left: 0.2rem;
+      color: #af9e8b;
+      font-weight: bold;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      background: #e7dfd3;
+      color: #3c352d;
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      letter-spacing: 0.03rem;
+      margin-top: 0.5rem;
+    }
+
+    /* 自然引用 / 提示框 */
+    .pull-quote {
+      background: #f4efe7;
+      border-left: 5px solid #c3b4a2;
+      padding: 1.4rem 1.8rem;
+      margin: 2.2rem 0;
+      border-radius: 12px 30px 30px 12px;
+      font-style: normal;
+      color: #3f3a32;
+    }
+
+    .pull-quote strong {
+      color: #5b4e40;
+      font-weight: 500;
+    }
+
+    .pull-quote a {
+      color: #6f5e4b;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      transition: color 0.1s;
+    }
+
+    .pull-quote a:hover {
+      color: #a08468;
+    }
+
+    .insight-box {
+      background: #f3ede4;
+      padding: 1.6rem 2rem;
+      border-radius: 60px 20px 20px 60px;
+      margin: 2rem 0 1rem 0;
+      border: 1px solid #ded4c6;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 0.8rem;
+    }
+
+    .insight-box .label {
+      font-weight: 380;
+      color: #786b5b;
+      background: #eae0d4;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+    }
+
+    .insight-box .text {
+      flex: 1;
+      min-width: 200px;
+      color: #373028;
+    }
+
+    .faq-mini {
+      margin-top: 2.8rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid #e4dbcf;
+    }
+
+    .faq-mini details {
+      margin-bottom: 0.8rem;
+      padding: 0.6rem 0.8rem;
+      background: #f8f4ec;
+      border-radius: 40px;
+      border: 1px solid #ece4d9;
+      transition: background 0.15s;
+    }
+
+    .faq-mini details[open] {
+      background: #efe9df;
+      border-color: #d9cdbc;
+    }
+
+    .faq-mini summary {
+      font-weight: 400;
+      cursor: pointer;
+      color: #4a4239;
+      padding: 0.2rem 0;
+      font-size: 0.98rem;
+    }
+
+    .faq-mini details p {
+      padding: 0.5rem 0.8rem 0.2rem 0.8rem;
+      color: #575047;
+      font-size: 0.9rem;
+    }
+
+    /* 适合人群卡片（第三张卡）单独占一行 */
+    .full-width-card {
+      grid-column: 1 / -1;
+      max-width: 100%;
+    }
+
+    /* 响应式 */
+    @media (max-width: 680px) {
+      .container {
+        padding: 1.6rem 1rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.4rem;
+      }
+      .pull-quote {
+        padding: 1rem 1.2rem;
+      }
+      .insight-box {
+        border-radius: 40px 16px 16px 40px;
+        padding: 1rem 1.4rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+      .hero .sub {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* 自然 a 标签不额外加按钮样式，保持温和嵌入 */
+    .inline-link {
+      color: #6d5e4b;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: #cbbcad;
+      font-weight: 400;
+    }
+
+    .inline-link:hover {
+      color: #9b826a;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #a99e91;
+      border-top: 1px solid #e7dfd4;
+      padding-top: 1.8rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- hero -->
+  <div class="hero">
+    <h1>再访 · 世界杯</h1>
+    <div class="sub">收藏一处角落，持续关注绿茵上的故事</div>
+  </div>
+
+  <!-- 信息卡片网格 -->
+  <div class="card-grid">
+
+    <!-- 卡片：主视觉/用途 -->
+    <div class="card">
+      <h3>用途即景</h3>
+      <p>这里不是赛程表，也不做即时比分。它更像一座安静的档案室，适合你在比赛间歇、深夜复盘，或某个想起某届世界杯的午后打开。</p>
+      <p>你可以用它来：</p>
+      <ul>
+        <li>回溯历届经典对阵与赛事脉络</li>
+        <li>浏览不同年代球队风格的演变</li>
+        <li>当作一本可随时翻阅的赛事札记</li>
+      </ul>
+      <span class="badge-tag">#信息归档</span>
+    </div>
+
+    <!-- 卡片：适合人群 -->
+    <div class="card full-width-card" style="margin-top: 0;">
+      <h3>适合这样的你</h3>
+      <p>如果你习惯把一届世界杯反复看上几遍，会为某场淘汰赛的战术布置着迷，或者只是想在非比赛日也找到与世界杯有关的延伸阅读——那么这里会给你一种从容的陪伴感。</p>
+      <p>新球迷可以从风格卡片入手；老球迷则适合在熟悉的内容里发现被忽略的细节。不分年龄或资历，只要你对世界杯有持续的好奇。</p>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.8rem;">
+        <span class="badge-tag">📘 赛事考古</span>
+        <span class="badge-tag">📎 慢阅读</span>
+        <span class="badge-tag">🧩 碎片知识</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 引用块 + 自然链接 -->
+  <div class="pull-quote">
+    <strong>再次访问的理由</strong>  —— 页面不变，但你的视角会变。每一次回看，都可能找到上次忽略的注脚。如果你曾收藏过这里，不妨偶尔回来翻翻；如果你第一次来，<a href="https://zhcn-cup26na.com" class="inline-link">世界杯</a> 只是起点，后续的内容会慢慢生长。
+  </div>
+
+  <!-- 提示框风格段落 -->
+  <div class="insight-box">
+    <span class="label">持续关注</span>
+    <span class="text">无需频繁刷新。这里更新节奏平稳，偶尔补充一篇笔记或整理一个主题页。适合将链接放入书签夹，隔段时间再访，总有一些新的编排。</span>
+  </div>
+
+  <!-- FAQ 摘要 -->
+  <div class="faq-mini">
+    <h3 style="font-weight: 380; margin-bottom: 0.6rem; color: #504840;">常见念头 · 简短回答</h3>
+    <details>
+      <summary>这里和官方世界杯网站有什么不同？</summary>
+      <p>更安静，更侧重内容整理而非即时信息。风格偏向阅读与收藏，没有弹窗和自动播放。</p>
+    </details>
+    <details>
+      <summary>需要注册或登录吗？</summary>
+      <p>不需要。就像走进一间公开的阅览室，直接浏览即可。</p>
+    </details>
+    <details>
+      <summary>内容会变动很大吗？</summary>
+      <p>大框架保持稳定，但会陆续补充新的卡片和篇章。偶尔重新编排，让旧内容更容易被发现。</p>
+    </details>
+  </div>
+
+  <!-- footer 仅留白 -->
+  <footer>
+    页面内容源于整理 · 慢慢来比较快
+  </footer>
+</div>
+</body>
+</html>
